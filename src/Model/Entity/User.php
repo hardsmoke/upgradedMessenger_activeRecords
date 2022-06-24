@@ -36,6 +36,40 @@ class User implements \JsonSerializable
         return Hash($this->password);
     }
 
+    public function Add(User $user) : bool
+    {
+        $username = $message->GetUsername();
+        $password = $message->GetPassword();
+
+        $query = $this->connection->prepare("INSERT INTO users(username, password) VALUES (:username, :password))";
+        return $query->execute(['username' => $username, 'password' => $password]);
+    }
+	
+    public function Delete(int $id) : bool
+    {
+	    $query = $this->connection->prepare('DELETE FROM users WHERE id = :id');
+        return $query->execute();
+    }
+
+    public function GetAll() : array
+    {
+        $query = $this->connection->prepare('SELECT username, password FROM users');
+	
+	    $query->execute();
+
+        return $query->fetchAll();
+    }
+	
+    public function GetById(int $id)
+    {
+	    $query = $this->pdo->prepare('SELECT * FROM users WHERE id = :id');
+	    
+        $query->execute(['id' => $id]);
+        $data = $query->fetch();
+	
+        return new Message($data['username'], $data['password']);
+    }
+    
     #[ReturnTypeWillChange]
     #[ArrayShape(['username' => "null|string", 'password' => "string"])]
     public function jsonSerialize(): array
