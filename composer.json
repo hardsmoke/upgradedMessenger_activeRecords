@@ -1,0 +1,12 @@
+{
+    "autoload": {
+      "psr-4": {
+        "Messenger\\": "src/"
+      }
+    },
+    "require": {
+        "monolog/monolog": "^2.7",
+        "twig/twig": "^3.4",
+      "ext-pdo": "*"
+    }
+}

@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="authentication.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+<form class="form" action="/?action=send-message" method="POST">
+    <input type="text" name="message" class="form-control" placeholder="Enter Your Message" required>
+    <button type="submit" class="btn btn-lg btn-primary btn-block w-100">Send Message</button>
+    <a href="/?action=logout">logout</a>
+</form>
+
+<blockquote class="blockquote text-center">
+    {% for message in messages %}
+        <p class="mb-0">{{ message.datetime }} <b>{{ message.username }}</b>: {{ message.message }}</p>
+    {% endfor %}
+</blockquote>
