@@ -45,16 +45,11 @@ class Message
         $query = $this->connection->prepare('SELECT message, username FROM messages');
 	
 	$query->execute();
-	$data = $query->fetchAll();
-        $messages = array();
-        foreach ($data as $array){
-            $messages[] = new Message($array['message'], $array['username']);
-        }
-	    
-        return $messages;
+
+        return $query->fetchAll();
     }
 	
-    public function GetById(int $id) : Message
+    public function GetById(int $id)
     {
 	$query = $this->pdo->prepare('SELECT * FROM messages WHERE id = :id');
 	    
